@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Services{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="text-center mb-4">
+        <h2 class="d-inline-block border-bottom border-3 border-danger pb-2">Our Services</h2>
+    </div>
+
+  <div class="row g-4">
+
+    <div class="col-md-4">
+      <a href="{% url 'emergencyContact' %}" class="text-decoration-none text-dark">
+        <div class="card h-100 shadow-sm">
+          <img src="{% static 'emergencyContact.png' %}" class="card-img-top" alt="Service 1">
+          <div class="card-body text-center">
+            <h5 class="card-title">EMERGENCY ALERT</h5>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="col-md-4">
+      <a href="{% url 'quickAlert' %}" class="text-decoration-none text-dark">
+        <div class="card h-100 shadow-sm">
+          <img src="{% static 'travel.jpg' %}" class="card-img-top" alt="Service 4">
+          <div class="card-body text-center">
+            <h5 class="card-title">TRAVEL ALERT</h5>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="col-md-4">
+      <a href="{% url 'ngo' %}" class="text-decoration-none text-dark">
+        <div class="card h-100 shadow-sm">
+          <img src="{% static 'Ngo.png' %}" class="card-img-top" alt="Service 3">
+          <div class="card-body text-center">
+            <h5 class="card-title">NGO LISTING</h5>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="col-md-4">
+      <a href="{% url 'policeStations' %}" class="text-decoration-none text-dark">
+        <div class="card h-100 shadow-sm">
+          <img src="{% static 'policeStation.png' %}" class="card-img-top" alt="Service 2">
+          <div class="card-body text-center">
+            <h5 class="card-title">POLICE STATIONS</h5>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="col-md-4">
+      <a href="{% url 'mechanicLocator' %}" class="text-decoration-none text-dark">
+        <div class="card h-100 shadow-sm">
+          <img src="{% static 'mechanicLocator.png' %}" class="card-img-top" alt="Service 5">
+          <div class="card-body text-center">
+            <h5 class="card-title">CAR REPAIR</h5>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="col-md-4">
+      <a href="{% url 'fuelStations' %}" class="text-decoration-none text-dark">
+        <div class="card h-100 shadow-sm">
+          <img src="{% static 'FuelStation.png' %}" class="card-img-top" alt="Service 6">
+          <div class="card-body text-center">
+            <h5 class="card-title">FUEL STATIONS</h5>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="container py-4">
+    <div class="text-center mb-4">
+        <h2 class="d-inline-block border-bottom border-3 border-danger pb-2">Safety Guidelines</h2>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="p-4 bg-white shadow-sm border-start border-danger border-4 rounded h-100">
+                <h5 class="fw-bold text-danger mb-2">1. Use the Emergency Alert Button</h5>
+                <p class="mb-0">In case of immediate danger, press the Emergency Alert button. This will instantly notify your family and emergency contacts for assistance.</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="p-4 bg-white shadow-sm border-start border-danger border-4 rounded h-100">
+                <h5 class="fw-bold text-danger mb-2">2. Keep Emergency Contacts Updated</h5>
+                <p class="mb-0">Always ensure your emergency contact list is up-to-date in the app. This helps authorities or our team reach your loved ones without delay.</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="p-4 bg-white shadow-sm border-start border-danger border-4 rounded h-100">
+                <h5 class="fw-bold text-danger mb-2">3. Locate Nearest Police Stations</h5>
+                <p class="mb-0">Use the Police Stations feature to identify nearby stations. Head there if you feel unsafe or require immediate official support.</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="p-4 bg-white shadow-sm border-start border-danger border-4 rounded h-100">
+                <h5 class="fw-bold text-danger mb-2">4. Contact NGO Helplines</h5>
+                <p class="mb-0">Reach out to women's rights NGOs in your area through the app. They offer legal, psychological, and emergency support for women in distress.</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="p-4 bg-white shadow-sm border-start border-danger border-4 rounded h-100">
+                <h5 class="fw-bold text-danger mb-2">5. Use Mechanic Locator if Stranded</h5>
+                <p class="mb-0">If your vehicle breaks down, use the Mechanic Locator instead of waiting in unknown or unsafe places. Help will come to you quickly.</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="p-4 bg-white shadow-sm border-start border-danger border-4 rounded h-100">
+                <h5 class="fw-bold text-danger mb-2">6. Plan Fuel Stops in Advance</h5>
+                <p class="mb-0">Avoid getting stranded late at night by using our Fuel Stations feature to find and stop at well-lit, secure stations during your trip.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

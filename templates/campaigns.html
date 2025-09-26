@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Campaign{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="text-center mb-4">
+    <h2 class="d-inline-block border-bottom border-3 border-danger pb-2">Our Campaigns</h2>
+  </div>
+
+  <div class="mb-5">
+    {% for campaign in campaigns %}
+    <div class="border rounded shadow-sm p-4 mb-4">
+  <div class="d-flex justify-content-between align-items-center mb-2">
+    <h5 class="mb-0">{{ campaign.title }}</h5>
+    {% if user.is_authenticated %}
+      {% if campaign in volunteered_campaigns %}
+        <button class="btn btn-success btn-sm rounded-4" disabled>Volunteered</button>
+      {% else %}
+        <a href="{% url 'volunteer_campaign' campaign.id %}" class="btn btn-outline-danger btn-sm rounded-4">Volunteer</a>
+      {% endif %}
+    {% else %}
+      <a href="{% url 'login' %}?next={% url 'volunteer_campaign' campaign.id %}" class="btn btn-outline-danger btn-sm rounded-4">Volunteer</a>
+    {% endif %}
+  </div>
+  <p class="mb-0 text-muted">{{ campaign.desc }}</p>
+</div>
+
+    {% empty %}
+    <p class="text-center text-muted">No campaigns found.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

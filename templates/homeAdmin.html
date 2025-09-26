@@ -1,0 +1,69 @@
+{% extends 'baseAdmin.html' %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="text-center mb-4">
+    <h2 class="d-inline-block border-bottom border-3 border-danger pb-2">Admin Home</h2>
+  </div>
+
+  <!-- Campaigns Section -->
+  <div class="mb-5">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="text-danger">Campaigns</h4>
+    <a href="{% url 'addCampaign' %}" class="btn btn-outline-dark rounded-4">Add Campaign</a>
+  </div>
+
+  {% for campaign in campaigns %}
+  <div class="border rounded shadow-sm p-3 mb-3 d-flex justify-content-between align-items-start">
+    <div>
+      <h5 class="mb-1">{{ campaign.title }}</h5>
+      <p class="mb-0 text-muted">{{ campaign.desc }}</p>
+    </div>
+    <form method="POST" action="{% url 'delete_campaign' campaign.id %}">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-sm btn-outline-danger ms-3">Delete</button>
+    </form>
+  </div>
+  {% empty %}
+  <p class="text-muted">No campaigns found.</p>
+  {% endfor %}
+</div>
+
+  <!-- Blogs Section -->
+  <div>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h4 class="text-danger">Blogs</h4>
+  </div>
+
+  {% for blog in blogs %}
+  <div class="border rounded shadow-sm p-3 mb-3">
+    <a href="{% url 'blog_detail' blog.id %}" class="text-decoration-none text-dark">
+      <h5 class="mb-1">{{ blog.title }}</h5>
+    </a>
+    
+    <p class="text-muted text-truncate" style="max-height: 3.5em; overflow: hidden; line-height: 1.75em;">
+      {{ blog.main_para }}
+    </p>
+
+    <div class="mt-2">
+      <a href="{% url 'blog_detail' blog.id %}" class="btn btn-outline-primary btn-sm rounded-4 me-2">View Blog</a>
+
+      <a href="{% url 'delete_blog' blog.id %}" class="btn btn-outline-danger btn-sm rounded-4 me-2"
+         onclick="return confirm('Are you sure you want to delete this blog?');">Delete Blog</a>
+
+      {% if not blog.isApproved %}
+      <a href="{% url 'approve_blog' blog.id %}" class="btn btn-outline-success btn-sm rounded-4">Approve Blog</a>
+      {% endif %}
+    </div>
+  </div>
+  {% empty %}
+  <p class="text-muted">No blogs found.</p>
+  {% endfor %}
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

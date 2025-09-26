@@ -1,0 +1,187 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safety - {% block title %}{% endblock %}</title>
+    <link rel="shortcut icon" href="{% static 'dar umeed logo.png' %}" type="image/x-icon">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
+      crossorigin="anonymous"
+    />
+    <script src="https://kit.fontawesome.com/06b714e5f1.js" crossorigin="anonymous"></script>
+
+
+    <style>
+      .icon-hover:hover {
+        color: #ffc107 !important; 
+        transform: scale(1.2);
+        transition: all 0.2s ease-in-out;
+      }
+     .bd-bottom {
+  position: relative;
+}
+
+.bd-bottom::before {
+  content: '';
+  background: red;
+  width: 0px;
+  height: 2px;
+  position: absolute;
+  bottom: 5px;
+  left: 9px;
+  display: block;
+  z-index: 99999;
+  transition: width 0.75s ease; 
+}
+
+.bd-bottom:hover::before {
+  width: 75%;
+}
+    </style>
+    
+</head>
+<body>
+
+    <nav class="navbar navbar-upper navbar-expand-lg bg-danger text-black py-5 position-relative">
+  <div class="container position-relative">
+
+
+    <div class="position-absolute top-50 start-50 translate-middle text-center">
+     <img src="{% static 'bg removed.png' %}" alt="Dar-e-Umeed Logo" class="img-fluid" style="max-width: 160px;">
+    </div>
+
+    {% if user.is_authenticated %}
+<div class="d-none d-lg-flex align-items-center ms-auto">
+  <a href="{% url 'logout' %}" class="text-white mx-3 icon-hover">
+    <i class="fa-solid fa-right-from-bracket"></i>
+  </a>
+</div>
+{% else %}
+<div class="d-none d-lg-flex align-items-center ms-auto">
+  <a href="{% url 'login' %}" class="mx-3 text-white icon-hover">
+    <i class="fa-solid fa-user"></i>
+  </a>
+</div>
+{% endif %}
+    <button
+      class="navbar-toggler d-lg-none ms-auto"
+      type="button"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#sidebar"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+  </div>
+</nav>
+
+    <nav class="navbar navbar-lower navbar-expand-lg bg-dark sticky-top shadow-sm z-3">
+    <div class="container d-none d-lg-block">
+        <ul class="navbar-nav justify-content-center w-100">
+        <li class="nav-item mx-3">
+            <a class="bd-bottom nav-link fw-normal text-white" href="{% url 'home' %}">HOME</a>
+        </li>
+        <li class="nav-item mx-3">
+            <a class="bd-bottom nav-link fw-normal text-white" href="{% url 'about' %}">ABOUT</a>
+        </li>
+        <li class="nav-item mx-3">
+            <a class="bd-bottom nav-link fw-normal text-white" href="{% url 'services' %}">SERVICES</a>
+        </li>
+        <li class="nav-item mx-3">
+            <a class="bd-bottom nav-link fw-normal text-white" href="{% url 'contact' %}">CONTACT</a>
+        </li>
+        </ul>
+    </div>
+    </nav>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebar">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title text-danger fw-bold fs-3 p-1">Menu</h5>
+        <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="offcanvas"
+        ></button>
+    </div>
+    <div class="offcanvas-body pe-2">
+        <ul class="navbar-nav">
+        {% if user.is_authenticated %}
+        <li class="nav-item my-2">
+            <a href="{% url 'logout' %}" class="text-dark mx-3">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            </a>
+        </li>
+        {% else %}
+        <li class="nav-item my-2">
+            <a href="{% url 'login' %}" class="text-dark mx-3">
+            <i class="fa-solid fa-user"></i>
+            </a>
+        </li>
+        {% endif %}
+        <li class="nav-item mx-2">
+            <a class="nav-link fw-medium" href="{% url 'home' %}">HOME</a>
+        </li>
+        <li class="nav-item mx-2">
+            <a class="nav-link fw-medium" href="{% url 'about' %}">ABOUT</a>
+        </li>
+        <li class="nav-item mx-2">
+            <a class="nav-link fw-medium" href="{% url 'services' %}">SERVICES</a>
+        </li>
+        <li class="nav-item mx-2">
+            <a class="nav-link fw-medium" href="{% url 'contact' %}">CONTACT</a>
+        </li>
+        </ul>
+    </div>
+    </div>
+
+
+    {% block content %}{% endblock %}
+
+    <footer class="text-center bg-light">
+    <div class="container py-3">
+        <a class="text-dark mx-2" href="#"><i class="fab fa-facebook-f fa-lg"></i></a>
+        <a class="text-dark mx-2" href="#"><i class="fab fa-twitter fa-lg"></i></a>
+        <a class="text-dark mx-2" href="#"><i class="fab fa-instagram fa-lg"></i></a>
+    </div>
+
+    <div class="text-center p-3 border-top bg-danger bg-opacity-75 text-white">© 2025 Women Safety App: Made by 
+        <a class="text-decoration-none text-white fst-italic fw-semibold" href="https://nabeel-ahmad07.github.io/">Nabeel Ahmad</a>
+        </div>
+    </footer>
+
+<div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="messageModalLabel">Alert</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center fs-5">
+        {% for message in messages %}
+         <div class="text-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if messages %}
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var myModal = new bootstrap.Modal(document.getElementById('messageModal'));
+    myModal.show();
+  });
+</script>
+{% endif %}
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+      crossorigin="anonymous"
+    ></script>
+</body>
+</html>

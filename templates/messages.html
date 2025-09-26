@@ -1,0 +1,22 @@
+{% extends 'baseAdmin.html' %}
+{% block title %}Messages{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <h2 class="text-danger mb-4 text-center">User Messages</h2>
+
+    {% if messages_list %}
+        {% for msg in messages_list %}
+        <div class="border rounded shadow-sm p-3 mb-3 bg-light">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h5 class="mb-0">{{ msg.name }}</h5>
+                <small class="text-muted">{{ msg.email }}</small>
+            </div>
+            <p class="mb-0">{{ msg.message }}</p>
+        </div>
+        {% endfor %}
+    {% else %}
+        <p class="text-center text-muted">No messages found.</p>
+    {% endif %}
+</div>
+{% endblock %}

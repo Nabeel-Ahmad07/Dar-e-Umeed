@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% block title %}Contacts{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm mt-4">
+  <div class="card-body text-center px-3 py-4">
+    <h3 class="mb-3 fw-bold text-danger">Emergency Alert</h3>
+    <p class="mb-4">In case of emergency, press the button below to alert all your emergency contacts via email.</p>
+    <form method="post">
+      {% csrf_token %}
+      <input type="hidden" name="alert_type" value="emergency">
+      <input type="hidden" name="location" id="userLocation">
+      <button type="submit" class="btn btn-outline-danger btn-md px-4">Send Alert</button>
+    </form>
+  </div>
+</div>
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white text-center">
+          <h4>Saved Emergency Contacts</h4>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover align-middle text-center">
+              <thead class="table-dark">
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Relation</th>
+                  <th>Phone Number</th>
+                  <!-- <th>Email</th> -->
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for contact in contacts %}
+                <tr>
+                  <td>{{ forloop.counter }}</td>
+                  <td>{{ contact.name }}</td>
+                  <td>{{ contact.relation }}</td>
+                  <td>{{ contact.phone_number }}</td>
+                  <!-- <td>{{ contact.email }}</td> -->
+                  <td>
+                    <button class="btn btn-sm btn-outline-dark me-2" data-bs-toggle="modal" data-bs-target="#updateContactModal{{ contact.id }}">Update</button>
+                    <a href="{% url 'delete_contact' contact.id %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                  </td>
+                </tr>
+
+                <div class="modal fade" id="updateContactModal{{ contact.id }}" tabindex="-1" aria-labelledby="updateContactModalLabel{{ contact.id }}" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                      <div class="modal-header bg-warning text-dark">
+                        <h5 class="modal-title" id="updateContactModalLabel{{ contact.id }}">Update Emergency Contact</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                      </div>
+                      <form method="POST" action="{% url 'update_contact' contact.id %}">
+                        {% csrf_token %}
+                        <div class="modal-body">
+                          <div class="mb-3">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-control" name="name" value="{{ contact.name }}" required>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Relation</label>
+                            <input type="text" class="form-control" name="relation" value="{{ contact.relation }}" required>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" name="phone" value="{{ contact.phone_number }}" required>
+                          </div>
+                          <div class="mb-3">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-control" name="email" value="{{ contact.email }}" required>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                          <button type="submit" class="btn btn-warning">Save</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container pb-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm">
+        <div class="card-header bg-danger text-white text-center">
+          <h4>Add Emergency Contact</h4>
+        </div>
+        <div class="card-body">
+          <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="name" class="form-label">Full Name</label>
+              <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="mb-3">
+              <label for="relation" class="form-label">Relation</label>
+              <input type="text" class="form-control" id="relation" name="relation" required>
+            </div>
+            <div class="mb-3">
+              <label for="phone" class="form-label">Phone Number</label>
+              <input type="tel" class="form-control" id="phone" name="phone" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email Address</label>
+              <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-danger">Add Contact</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Geolocation script for emergency alert location -->
+<script>
+navigator.geolocation.getCurrentPosition(function(position) {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    const locationField = document.getElementById("userLocation");
+    if (locationField) {
+        locationField.value = `https://www.google.com/maps?q=${latitude},${longitude}`;
+    }
+});
+</script>
+
+{% endblock %}

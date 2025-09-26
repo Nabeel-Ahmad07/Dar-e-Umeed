@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}Add Blog{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="text-center mb-4">
+    <h2 class="d-inline-block border-bottom border-3 border-danger pb-2">Write your Blog here</h2>
+  </div>
+
+  <div class="p-4 border rounded shadow-sm">
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+
+      <div class="mb-3">
+        <label class="form-label">Title</label>
+        <input type="text" name="title" class="form-control" placeholder="Enter blog title" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Upload Image</label>
+        <input type="file" name="img" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Main Paragraph</label>
+        <textarea name="main_para" rows="4" class="form-control" placeholder="Write your main content here" required></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Heading 1</label>
+        <input type="text" name="heading1" class="form-control" placeholder="Optional heading">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Paragraph 1</label>
+        <textarea name="para1" rows="3" class="form-control" placeholder="Optional paragraph"></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Heading 2</label>
+        <input type="text" name="heading2" class="form-control" placeholder="Optional heading">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Paragraph 2</label>
+        <textarea name="para2" rows="3" class="form-control" placeholder="Optional paragraph"></textarea>
+      </div>
+
+      <div class="text-center">
+        <button type="submit" class="btn btn-outline-danger px-5 rounded-4 mt-3">Request Approval</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

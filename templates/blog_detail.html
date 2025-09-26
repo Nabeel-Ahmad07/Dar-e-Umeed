@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}{{ blog.title }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="text-center mb-4">
+    <h2 class="d-inline-block border-bottom border-3 border-danger pb-2">{{ blog.title }}</h2>
+    <p class="text-muted">by {{ blog.author.username }}</p>
+  </div>
+
+  <div class="card shadow-sm border-0 mb-4">
+    {% if blog.img %}
+      <img src="{{ blog.img.url }}" class="card-img-top" style="max-height: 400px; object-fit: cover;" alt="Blog Image">
+    {% endif %}
+    <div class="card-body">
+      <p class="card-text fs-5" style="text-align: justify;">{{ blog.main_para }}</p>
+
+      {% if blog.heading1 %}
+        <h4 class="mt-4 text-danger">{{ blog.heading1 }}</h4>
+        <p class="text-muted" style="text-align: justify;">{{ blog.para1 }}</p>
+      {% endif %}
+
+      {% if blog.heading2 %}
+        <h4 class="mt-4 text-danger">{{ blog.heading2 }}</h4>
+        <p class="text-muted" style="text-align: justify;">{{ blog.para2 }}</p>
+      {% endif %}
+    </div>
+  </div>
+
+</div>
+{% endblock %}
