@@ -36,5 +36,5 @@ This project demonstrates skills in full-stack development, responsive UI/UX, an
 ## Setup & Installation
 1. Clone this repository:
    ```bash
-   git clone https://github.com/your-username/Dar-e-Umeed.git
+   git clone https://github.com/Nabeel-Ahmad07/Dar-e-Umeed.git
    cd Dar-e-Umeed
